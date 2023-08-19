@@ -1,0 +1,10 @@
+﻿@using ViewComponentOrnegi.Models;
+@model List<Urun>
+
+<h3>Ürün Listesi</h3>
+<ul>
+    @foreach (var urun in Model)
+    {
+        <li>@urun.Ad - @urun.Fiyat TL</li>
+    }
+</ul>

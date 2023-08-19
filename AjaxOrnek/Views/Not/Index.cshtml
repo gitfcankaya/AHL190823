@@ -1,0 +1,39 @@
+﻿@model List<Not>
+
+<h1>Not Defteri</h1>
+
+<form id="notForm">
+    <label for="baslik">Başlık:</label>
+    <input type="text" id="baslik" name="Baslik"><br>
+    <label for="icerik">İçerik:</label>
+    <textarea id="icerik" name="Icerik"></textarea><br>
+    <button type="submit">Not Ekle</button>
+</form>
+
+<div>
+    <ul id="notListesi">
+        @foreach (var not in Model)
+        {
+            <li>@not.Baslik - @not.Icerik</li>
+        }
+    </ul>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#notForm").submit(function (event) {
+            event.preventDefault();
+
+            var baslik = $("#baslik").val();
+            var icerik = $("#icerik").val();
+
+            $.post("/Not/NotEkle", { Baslik: baslik, Icerik: icerik }, function (data) {
+                $("#notListesi").append("<li>" + data.baslik + " - " + data.icerik + "</li>");
+            });
+
+            $("#baslik").val("");
+            $("#icerik").val("");
+        });
+    });
+</script>
